@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\pagestyle{empty}
+
+\newcommand\coolover[2]{\mathrlap{\smash{\overbrace{\phantom{%
+    \begin{matrix} #2 \end{matrix}}}^{\mbox{$#1$}}}}#2} 
+
+\newcommand\coolunder[2]{\mathrlap{\smash{\underbrace{\phantom{%
+    \begin{matrix} #2 \end{matrix}}}_{\mbox{$#1$}}}}#2}
+
+\newcommand\coolleftbrace[2]{%
+#1\left\{\vphantom{\begin{matrix} #2 \end{matrix}}\right.}
+
+\newcommand\coolrightbrace[2]{%
+\left.\vphantom{\begin{matrix} #1 \end{matrix}}\right\}#2}
+
+\newcommand{\targfix}{\qw {\xy {<0em,0em> \ar @{ - } +<.39em,0em>
+\ar @{ - } -<.39em,0em> \ar @{ - } +<0em,.39em> \ar @{ - }
+-<0em,.39em>},<0em,0em>*{\rule{.01em}{.01em}}*+<.8em>\frm{o}
+\endxy}}
+
+\input{Qcircuit}
+
+\newcommand{\braket}[2]{\langle #1|#2 \rangle}
+\newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
+\newcommand{\norm}[1]{\parallel #1 \parallel}
+
+\begin{document}
+
+\[ \vphantom{% phantom stuff for correct box dimensions
+    \begin{matrix}
+    \overbrace{XYZ}^{\mbox{$R$}}\\ \\ \\ \\ \\ \\ 
+    \underbrace{pqr}_{\mbox{$S$}}
+    \end{matrix}}%
+\begin{matrix}% matrix for left braces
+\vphantom{a}\\ 
+\coolleftbrace{A}{e \\ y\\ y}\\
+\coolleftbrace{B}{y \\i \\ m}
+\end{matrix}%
+\begin{bmatrix}
+a & \coolover{R}{b & c & d} & x & \coolover{Z}{x & x}\\
+e & f & g & h & x & x & x \\
+y & y & y & y & y & y & y \\
+y & y & y & y & y & y & y \\
+y & y & y & y & y & y & y \\
+i & j & k & l & x & x & x \\
+m &  \coolunder{S}{n & o}  & \coolunder{W}{p & x & x} & x
+\end{bmatrix}%
+\begin{matrix}% matrix for right braces 
+\coolrightbrace{x \\ x \\ y\\ y}{T}\\
+\coolrightbrace{y \\ y \\ x }{U}
+\end{matrix}\]
+
+\begin{displaymath}
+\underbrace{
+\begin{matrix}% matrix for left braces
+\vphantom{a}\\ 
+\coolleftbrace{A}{e \\ y\\ y}\\
+\coolleftbrace{B}{1 \\2 \\ 3 \\ 4 \\ 5}
+\end{matrix}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.7em { 
+	& \multigate{4}{U_1} & \qw & \multigate{4}{U_2} & \qw \\ 
+	& \ghost{U_1}        & \qw & \ghost{U_2}        & \qw \\
+	& \ghost{U_1}        & \qw & \ghost{U_2}        & \qw \\
+	& \ghost{U_1}        & \qw & \ghost{U_2}        & \qw \\
+	& \ghost{U_1}        & \qw & \ghost{U_2}        & \qw \\
+	& \multigate{4}{U_3} & \qw & \multigate{4}{U_4} & \qw \\
+	& \ghost{U_3}        & \qw & \ghost{U_4}        & \qw \\
+	& \ghost{U_3}        & \qw & \ghost{U_4}        & \qw \\
+	& \ghost{U_3}        & \qw & \ghost{U_4}        & \qw \\
+	& \ghost{U_3}        & \qw & \ghost{U_4}        & \qw
+	\gategroup{1}{2}{5}{4}{.7em}{--}
+}\\
+\xymatrix {
+  & d=2 \ar[l] \ar[r] & \\
+ }
+\end{array}
+}_{C}
+\end{displaymath}
+
+\end{document}
