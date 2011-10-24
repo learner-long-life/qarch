@@ -1,0 +1,45 @@
+\expandafter\ifx\csname graph\endcsname\relax
+   \csname newbox\expandafter\endcsname\csname graph\endcsname
+\fi
+\ifx\graphtemp\undefined
+  \csname newdimen\endcsname\graphtemp
+\fi
+\expandafter\setbox\csname graph\endcsname
+ =\vtop{\vskip 0pt\hbox{%
+    \special{pn 8}%
+    \special{ar 250 250 250 250 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.250in
+    \rlap{\kern 0.250in\lower\graphtemp\hbox to 0pt{\hss A\hss}}%
+    \special{ar 1250 250 250 250 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.250in
+    \rlap{\kern 1.250in\lower\graphtemp\hbox to 0pt{\hss A\hss}}%
+    \special{ar 2250 250 250 250 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.250in
+    \rlap{\kern 2.250in\lower\graphtemp\hbox to 0pt{\hss A\hss}}%
+    \special{ar 3250 250 250 250 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.250in
+    \rlap{\kern 3.250in\lower\graphtemp\hbox to 0pt{\hss A\hss}}%
+    \special{ar 4250 250 250 250 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.250in
+    \rlap{\kern 4.250in\lower\graphtemp\hbox to 0pt{\hss A\hss}}%
+    \special{ar 5250 250 250 250 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.250in
+    \rlap{\kern 5.250in\lower\graphtemp\hbox to 0pt{\hss A\hss}}%
+    \special{ar 6250 250 250 250 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.250in
+    \rlap{\kern 6.250in\lower\graphtemp\hbox to 0pt{\hss A\hss}}%
+    \special{ar 7250 250 250 250 0 6.28319}%
+    \graphtemp=.5ex
+    \advance\graphtemp by 0.250in
+    \rlap{\kern 7.250in\lower\graphtemp\hbox to 0pt{\hss A\hss}}%
+    \hbox{\vrule depth0.500in width0pt height 0pt}%
+    \kern 8.000in
+  }%
+}%
