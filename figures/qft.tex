@@ -1,0 +1,42 @@
+% a sample file for Journal of Quantum Information and Computation (QIC) in 
+% LaTex2e by inputing macro file "qic.sty" with command \usepackage{qic}, 
+% all the macros have been defined in the style file, so it is no need to 
+% put many macros at the beginning of the text file  
+
+\documentclass[twoside]{article}
+%\usepackage[dvips]{graphicx}
+%\usepackage{times}
+%\usepackage{fullpage}
+%\usepackage{rotating}
+%\usepackage{eepic}
+%\usepackage{amsfonts}
+%\usepackage{algorithmic}
+%\usepackage{amsthm}
+
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}
+
+\newcommand{\targfix}{\qw {\xy {<0em,0em> \ar @{ - } +<.39em,0em>
+\ar @{ - } -<.39em,0em> \ar @{ - } +<0em,.39em> \ar @{ - }
+-<0em,.39em>},<0em,0em>*{\rule{.01em}{.01em}}*+<.8em>\frm{o}
+\endxy}}
+
+\input{Qcircuit}
+
+\newcommand{\braket}[2]{\langle #1|#2 \rangle}
+\newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
+\newcommand{\norm}[1]{\parallel #1 \parallel}
+
+\begin{document}
+
+\begin{displaymath}
+\Qcircuit @C=.7em @R=.4em {
+\lstick{\ket{j_1}}  & \qw  & \gate{H} &\gate{Z_2} &\qw & \push\cdots  & \gate{Z_{n-1}} & \gate{Z_n} & \qw      &  \qw   &  \qw        &  \qw         &  \qw          &  \qw & \qw  & \qw     & \qw        &\qw  &\qw\\
+ \lstick{\ket{j_2}} & \qw  &   \qw    & \ctrl{-1} & \qw &      \qw    &    \qw       &     \qw    & \gate{H} & \qw    &\push\cdots  & \gate{Z_{n-2}} & \gate{Z_{n-1}} & \qw &\push\cdots    & \qw     & \qw        &\qw  &\qw\\
+ & \push\vdots        & & \push\vdots  \\
+\lstick{\ket {j_{n-1}}} &  \qw &  \qw   &  \qw      &  \qw  &  \qw      &  \ctrl{-3}         &  \qw        &  \qw     &  \qw   &  \qw      & \ctrl{-2}   &  \qw         &  \qw &\push\cdots & \gate H & \gate{Z_2} &\qw & \qw\\
+ \lstick{\ket{j_{n}}}   &  \qw &  \qw   &  \qw      &  \qw  &  \qw      &  \qw           &  \ctrl{-4}        &  \qw     &  \qw   &  \qw      &     \qw     &  \ctrl{-3}     & \qw &\push\cdots  &  \qw  &\ctrl{-1} &\gate H & \qw
+}
+\end{displaymath}
+
+\end{document}
