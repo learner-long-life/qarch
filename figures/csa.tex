@@ -1,0 +1,165 @@
+% a sample file for Journal of Quantum Information and Computation (QIC) in 
+% LaTex2e by inputing macro file "qic.sty" with command \usepackage{qic}, 
+% all the macros have been defined in the style file, so it is no need to 
+% put many macros at the beginning of the text file  
+
+\documentclass[twoside]{article}
+%\usepackage[dvips]{graphicx}
+%\usepackage{times}
+%\usepackage{fullpage}
+%\usepackage{rotating}
+%\usepackage{eepic}
+%\usepackage{amsfonts}
+%\usepackage{algorithmic}
+%\usepackage{amsthm}
+
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}
+
+\newcommand{\targfix}{\qw {\xy {<0em,0em> \ar @{ - } +<.39em,0em>
+\ar @{ - } -<.39em,0em> \ar @{ - } +<0em,.39em> \ar @{ - }
+-<0em,.39em>},<0em,0em>*{\rule{.01em}{.01em}}*+<.8em>\frm{o}
+\endxy}}
+
+\input{Qcircuit}
+
+\newcommand{\braket}[2]{\langle #1|#2 \rangle}
+\newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
+\newcommand{\norm}[1]{\parallel #1 \parallel}
+
+\newcommand\coolleftbrace[2]{%
+#1\left\{\vphantom{\begin{matrix} #2 \end{matrix}}\right.}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1
+\begin{figure}
+\begin{displaymath}
+\Qcircuit @C=2em @R=2em {
+\lstick{\ket{0}} & \qw        & \qw & \qw \\
+\lstick{\ket{a_i}} & \qw      & \qw & \qw \\
+\lstick{\ket{b_i}} & \ctrl{1} & \qw & \qw \\
+\lstick{\ket{c_i}} & \ctrl{1} & \qw & \qw \\
+\lstick{\ket{0}} & \targfix   & \qw & \qw_{\ket{b_i \wedge c_i}} 
+}
+\end{displaymath}
+\caption{Step 1}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2
+\begin{figure}
+\begin{displaymath}
+\Qcircuit @C=2em @R=2em {
+\lstick{\ket{0}} & \qw      & \qw & \qw                 & \qw & \qw                          \\
+\lstick{\ket{a_i}} & \qw      & \qw & \qw                 & \qw & \qw                        \\
+\lstick{\ket{b_i}} & \ctrl{1} & \qw & \targfix            & \qw & \qw_{\ket{b_i \oplus c_i}} \\
+\lstick{\ket{c_i}} & \ctrl{1} & \qw & \ctrl{-1}           & \qw & \qw                        \\
+\lstick{\ket{0}} & \targfix & \qw & \qw_{\ket{b_i \wedge c_i}} & \qw & \qw                   
+}
+\end{displaymath}
+\caption{Step 2}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3
+\begin{figure}
+\begin{displaymath}
+\Qcircuit @C=2em @R=2em {
+\lstick{\ket{0}} & \qw      & \qw & \qw                 & \qw & \qw                        & \targfix  & \qw & \qw_{\ket{a_i \wedge (b_i \oplus c_i)}} \\
+\lstick{\ket{a_i}} & \qw      & \qw & \qw                 & \qw & \qw                        & \ctrl{-1} & \qw & \qw                              \\
+\lstick{\ket{b_i}} & \ctrl{1} & \qw & \targfix            & \qw & \qw_{\ket{b_i \oplus c_i}} & \ctrl{-1} & \qw & \qw                              \\
+\lstick{\ket{c_i}} & \ctrl{1} & \qw & \ctrl{-1}           & \qw & \qw                        & \qw       & \qw & \qw                              \\
+\lstick{\ket{0}} & \targfix & \qw & \qw_{\ket{b_i \wedge c_i}} & \qw & \qw                        & \qw       & \qw & \qw                         
+}
+\end{displaymath}
+\caption{Step 3}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 5
+\begin{figure}
+\begin{displaymath}
+\Qcircuit @C=2em @R=2em {
+\lstick{\ket{0}} & \qw      & \qw & \qw                 & \qw & \qw                        & \targfix  & \qw & \qw_{\ket{a_i \wedge (b_i \oplus c_i)}} & \targfix  & \qw       & \qw & \qw_{\ket{(b_i \wedge c_i) \oplus a_i \wedge (b_i \oplus c_i)}} \\
+\lstick{\ket{a_i}} & \qw      & \qw & \qw                 & \qw & \qw                        & \ctrl{-1} & \qw & \qw                                   & \qw       & \targfix  & \qw & \qw_{\ket{a_i \oplus b_i \oplus c_i}} \\
+\lstick{\ket{b_i}} & \ctrl{1} & \qw & \targfix            & \qw & \qw_{\ket{b_i \oplus c_i}} & \ctrl{-1} & \qw & \qw                                   & \qw       & \ctrl{-1} & \qw & \qw \\
+\lstick{\ket{c_i}} & \ctrl{1} & \qw & \ctrl{-1}           & \qw & \qw                        & \qw       & \qw & \qw                                   & \qw       & \qw       & \qw & \qw \\
+\lstick{\ket{0}} & \targfix & \qw & \qw_{\ket{b_i \wedge c_i}} & \qw & \qw                        & \qw       & \qw & \qw                              & \ctrl{-4} & \qw       & \qw & \qw
+}
+\end{displaymath}
+\caption{Step 5}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 6
+\begin{figure}
+\begin{displaymath}
+\Qcircuit @C=2em @R=2em {
+\lstick{\ket{0}} & \qw      & \qw & \qw                 & \qw & \qw                        & \targfix  & \qw & \qw_{\ket{a_i \wedge (b_i \oplus c_i)}} & \targfix  & \qw       & \qw       & \qw_{\ket{(b_i \wedge c_i) \oplus a_i \wedge (b_i \oplus c_i)}} \\
+\lstick{\ket{a_i}} & \qw      & \qw & \qw                 & \qw & \qw                        & \ctrl{-1} & \qw & \qw                                   & \qw       & \targfix  & \qw       & \qw_{\ket{a_i \oplus b_i \oplus c_i}} \\
+\lstick{\ket{b_i}} & \ctrl{1} & \qw & \targfix            & \qw & \qw_{\ket{b_i \oplus c_i}} & \ctrl{-1} & \qw & \qw                                   & \qw       & \ctrl{-1} & \targfix  & \qw \\
+\lstick{\ket{c_i}} & \ctrl{1} & \qw & \ctrl{-1}           & \qw & \qw                        & \qw       & \qw & \qw                                   & \qw       & \qw       & \ctrl{-1} & \qw \\
+\lstick{\ket{0}} & \targfix & \qw & \qw_{\ket{b_i \wedge c_i}} & \qw & \qw                        & \qw       & \qw & \qw                              & \ctrl{-4} & \qw       & \qw       & \qw
+}
+\end{displaymath}
+\caption{Step 6}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 8
+\begin{figure}
+\begin{displaymath}
+\Qcircuit @C=2em @R=2em {
+\lstick{\ket{0}} & \qw      & \qw & \qw                 & \qw & \qw                        & \targfix  & \qw & \qw_{\ket{a_i \wedge (b_i \oplus c_i)}} & \targfix  & \qw       & \qw    & \qw_{\ket{(b_i \wedge c_i) \oplus a_i \wedge (b_i \oplus c_i)}}      & \qw & \rstick{\ket{v_{i+1}}}\\
+\lstick{\ket{a_i}} & \qw      & \qw & \qw                 & \qw & \qw                        & \ctrl{-1} & \qw & \qw                             & \qw       & \targfix  & \qw  & \qw_{\ket{a_i \oplus b_i \oplus c_i}}  & \qw & \rstick{\ket{u_i}} \\
+\lstick{\ket{b_i}} & \ctrl{1} & \qw & \targfix            & \qw & \qw_{\ket{b_i \oplus c_i}} & \ctrl{-1} & \qw & \qw                             & \qw       & \ctrl{-1} & \targfix  & \ctrl{1} & \qw & \rstick{\ket{b_i}} \\
+\lstick{\ket{c_i}} & \ctrl{1} & \qw & \ctrl{-1}           & \qw & \qw                        & \qw       & \qw & \qw                             & \qw       & \qw       & \ctrl{-1} & \ctrl{1} & \qw & \rstick{\ket{c_i}} \\
+\lstick{\ket{0}} & \targfix & \qw & \qw_{\ket{b_i \wedge c_i}} & \qw & \qw                        & \qw       & \qw & \qw                             & \ctrl{-4} & \qw       & \qw       & \targfix & \qw & \rstick{\ket{0}}
+}
+\end{displaymath}
+\caption{Step 8}
+\end{figure}
+
+\begin{displaymath}
+\left\{
+\begin{array}{ccccc}
+    & a_3 & a_2 & a_1 & a_0 \\
+    & b_3 & b_2 & b_1 & b_0 \\
+    & c_3 & c_2 & c_1 & c_0 \\
+\hline
+    & u_3 & u_2 & u_1 & u_0 \\
+v_4 & v_3 & v_2 & v_1 &    \\
+\hline
+x_4 & x_3 & x_2 & x_1 & x_0
+\end{array}
+\right\}
+=
+\left\{
+\begin{array}{ccccc}
+    & 1 & 0 & 1 & 1 \\
+    & 1 & 0 & 1 & 0 \\
+    & 1 & 0 & 0 & 1 \\
+\hline
+    & 1 & 0 & 0 & 0 \\
+  1 & 0 & 1 & 1 &   \\
+\hline
+1 & 1 & 1 & 1 & 0
+\end{array}
+\right\}
+=
+\left\{
+\begin{array}{r}
+11 \\
+10 \\
+9 \\
+\hline
+8 \\
+22 \\
+\hline
+30
+\end{array}
+\right\}
+\end{displaymath}
+\end{document}
