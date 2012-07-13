@@ -27,11 +27,26 @@
 \newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
 \newcommand{\norm}[1]{\parallel #1 \parallel}
 
+\newcommand\coolleftbrace[2]{%
+#1\left\{\vphantom{\begin{matrix} #2 \end{matrix}} \right.}
+
+\newcommand\coolrightbrace[2]{%
+\left. \vphantom{\begin{matrix} #2 \end{matrix}} \right\} #1}
+
 \begin{document}
 
 \begin{displaymath}
+\begin{array}{ccc}
+\begin{matrix}% matrix for left braces
+\vphantom{a}\\ 
+\coolleftbrace{n}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a }
+\end{matrix}
+\vphantom{a}
+\qquad \qquad \qquad
+\underbrace{
+\begin{array}{c}
 \Qcircuit @C=.7em @R=1.2em {
-\lstick{\ket{\psi}} & \qw  & \ctrl{4} & \qw & \ctrl{2} & \qw & \ctrl{1} & \qw \\
+\lstick{\alpha\ket{0}+\beta\ket{1}} & \qw  & \ctrl{4} & \qw & \ctrl{2} & \qw & \ctrl{1} & \qw \\
                     & \qw  & \qw      & \qw & \qw      & \qw & \targfix & \qw \\
                     & \qw  & \qw      & \qw & \targfix & \qw & \ctrl{1} & \qw \\
                     & \qw  & \qw      & \qw & \qw      & \qw & \targfix & \qw \\
@@ -39,7 +54,37 @@
                     & \qw  & \qw      & \qw & \qw      & \qw & \targfix & \qw \\
                     & \qw  & \qw      & \qw & \targfix & \qw & \ctrl{1} & \qw \\
                     & \qw  & \qw      & \qw & \qw      & \qw & \targfix & \qw
+}\\
+\vphantom{a}
+\end{array}
+}_{\log_2{n}}
+\begin{matrix}% matrix for right braces
+\vphantom{a}\\ 
+\coolrightbrace{\alpha\ket{0}^{\otimes n} + \beta\ket{1}^{\otimes n}}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a }
+\end{matrix}%
+
+&
+\qquad
+=
+\qquad
+&
+\begin{array}{c}
+\Qcircuit @C=.7em @R=1.2em {
+\lstick{\alpha\ket{0}+\beta\ket{1}} & \qw  & \ctrl{1} & \qw \\
+                                    & \qw  & \targfix & \qw \\
+                                    & \qw  & \targfix & \qw \\
+                                    & \qw  & \targfix & \qw \\
+                                    & \qw  & \targfix & \qw \\
+                                    & \qw  & \targfix & \qw \\
+                                    & \qw  & \targfix & \qw \\
+                                    & \qw  & \targfix & \qw \\
+                                    & \qw  & \targfix & \qw
 }
+\end{array}
+\end{array}
 \end{displaymath}
+
+
+
 
 \end{document}

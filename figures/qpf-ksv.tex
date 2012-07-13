@@ -1,0 +1,172 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{fullpage}
+\pagestyle{empty}
+
+\newcommand\coolover[2]{\mathrlap{\smash{\overbrace{\phantom{%
+    \begin{matrix} #2 \end{matrix}}}^{\mbox{$#1$}}}}#2} 
+
+\newcommand\coolunder[2]{\mathrlap{\smash{\underbrace{\phantom{%
+    \begin{matrix} #2 \end{matrix}}}_{\mbox{$#1$}}}}#2}
+
+\newcommand\coolleftbrace[2]{%
+#1\left\{\vphantom{\begin{matrix} #2 \end{matrix}}\right.}
+
+\newcommand\coolrightbrace[2]{%
+\left.\vphantom{\begin{matrix} #1 \end{matrix}}\right\}#2}
+
+\newcommand{\targfix}{\qw {\xy {<0em,0em> \ar @{ - } +<.39em,0em>
+\ar @{ - } -<.39em,0em> \ar @{ - } +<0em,.39em> \ar @{ - }
+-<0em,.39em>},<0em,0em>*{\rule{.01em}{.01em}}*+<.8em>\frm{o}
+\endxy}}
+
+\input{Qcircuit}
+
+\newcommand{\braket}[2]{\langle #1|#2 \rangle}
+\newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
+\newcommand{\norm}[1]{\parallel #1 \parallel}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KSV parallelized period-finding
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+\coolleftbrace{\text{First Register, } t \text{ qubits}}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a}\\
+\vphantom{a}\\
+\coolleftbrace{\text{Second Register, } L' = L + \log L \text{ qubits}}{a \\ a \\ a \\ a \\ a \\ a}\\
+\vphantom{a}\\
+\coolleftbrace{\text{Third Register, } L \text{ qubits}}{a \\ a \\ a \\ a \\ a \\ a}
+\end{matrix}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.7em { 
+	& \gate{H} & \multigate{10}{ADD} & \qw                          & \qw                          & \qw                   & \qw                      & \qw                      & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw                          & \qw                   & \qw                      & \qw                      & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw                          & \qw                   & \qw                      & \qw                      & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw                          & \qw                   & \qw                      & \qw                      & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw                          & \qw                   & \qw                      & \qw                      & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw                          & \qw                   & \qw                      & \qw                      & \gate{H} & \meter \\
+	& \qw      & \ghost{ADD}        & \ctrl{5}                     & \qw                          & \qw                   & \qw                      & \qw                      & \qw      & \qw    \\
+	& \qw      & \ghost{ADD}        & \qw                          & \ctrl{4}                     & \qw                   & \qw                      & \qw                      & \qw      & \qw    \\
+	& \qw      & \ghost{ADD}        & \qw                          & \qw                          & \qw                   & \qw                      & \qw                      & \qw      & \qw    \\
+	& \qw      & \ghost{ADD}        & \qw                          & \qw                          & \qw                   & \ctrl{2}                 & \qw                      & \qw      & \qw    \\
+	& \qw      & \ghost{ADD}        & \qw                          & \qw                          & \qw                   & \qw                      & \ctrl{1}                 & \qw      & \qw    \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{t-1}}_a} & \multigate{4}{U^{2^{t-2}}_a} & \multigate{4}{\cdots} & \multigate{4}{U^{2^1}_a} & \multigate{4}{U^{2^0}_a} & \qw      & \qw    \\
+	& \qw      & \qw                & \ghost{U^{2^{t-1}}_a}        & \ghost{U^{2^{t-2}}_a}        & \ghost{\cdots}        & \ghost{U^{2^1}_a}        & \ghost{U^{2^0}_a}        & \qw      & \qw    \\
+	& \qw      & \qw                & \ghost{U^{2^{t-1}}_a}        & \ghost{U^{2^{t-2}}_a}        & \ghost{\cdots}        & \ghost{U^{2^1}_a}        & \ghost{U^{2^0}_a}        & \qw      & \qw    \\
+	& \qw      & \qw                & \ghost{U^{2^{t-1}}_a}        & \ghost{U^{2^{t-2}}_a}        & \ghost{\cdots}        & \ghost{U^{2^1}_a}        & \ghost{U^{2^0}_a}        & \qw      & \qw    \\
+	& \qw      & \qw                & \ghost{U^{2^{t-1}}_a}        & \ghost{U^{2^{t-2}}_a}        & \ghost{\cdots}        & \ghost{U^{2^1}_a}        & \ghost{U^{2^0}_a}        & \qw      & \qw
+}\\
+\xymatrix {
+    & & & & & & t \ar[lll] \ar[rrr] & & & & & \\
+ }
+
+\end{array}
+\end{displaymath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KSV parallelized period-finding
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+\coolleftbrace{t}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a}\\
+\vphantom{a}\\
+\coolleftbrace{O(L)}{a \\ a \\ a \\ a \\ a \\ a}\\
+\vphantom{a}\\
+\coolleftbrace{O(L^3)}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a}
+\end{matrix}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.7em { 
+	& \gate{H} & \multigate{10}{ADD} & \qw                         & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{3}}_a}   & \multigate{4}{V} & \multigate{9}{V} & \multigate{19}{V} & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{3}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{3}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{3}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{3}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{2}}_a}   & \multigate{4}{V} & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{2}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{2}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{2}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{2}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{1}}_a}   & \multigate{4}{V} & \multigate{9}{V} & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{1}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{1}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{1}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{1}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{0}}_a}   & \multigate{4}{V} & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{0}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{0}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{0}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{0}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      &
+}\\
+\xymatrix {
+    & & & & & \log_2(t) \ar[ll] \ar[rr] & & & & \\
+ }
+\end{array}
+\end{displaymath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Constant-depth phase estimation
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+\coolleftbrace{t}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a}\\
+\vphantom{a}\\
+\coolleftbrace{O(L)}{a \\ a \\ a \\ a \\ a \\ a}\\
+\vphantom{a}\\
+\coolleftbrace{O(L^3)}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a}
+\end{matrix}
+\begin{array}{c}
+\Qcircuit @C=1em @R=.7em { 
+	& \gate{H} & \multigate{10}{ADD} & \qw                         & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \gate{H} & \ghost{ADD}        & \qw                          & \qw              & \qw              & \qw               & \gate{H} & \meter \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \ghost{ADD}        & \ctrl{1}                     & \qw              & \qw              & \qw               & \qw      & \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{3}}_a}   & \multigate{4}{V} & \multigate{9}{V} & \multigate{19}{V} & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{3}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{3}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{3}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{3}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{2}}_a}   & \multigate{4}{V} & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{2}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{2}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{2}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{2}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{1}}_a}   & \multigate{4}{V} & \multigate{9}{V} & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{1}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{1}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{1}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{1}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \multigate{4}{U^{2^{0}}_a}   & \multigate{4}{V} & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{0}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{0}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{0}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      & \\
+	& \qw      & \qw                & \ghost{U^{2^{0}}_a}        & \ghost{V}        & \ghost{V}        & \ghost{V}         & \qw      &
+}\\
+\xymatrix {
+    & & & & & \log_2(t) \ar[ll] \ar[rr] & & & & \\
+ }
+\end{array}
+\end{displaymath}
+
+
+\end{document}

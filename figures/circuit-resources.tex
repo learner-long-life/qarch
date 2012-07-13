@@ -53,4 +53,104 @@ S = 15 \\
 \end{array}
 \end{displaymath}
 
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+%\vphantom{a}\\ 
+\coolleftbrace{W = 5}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a }
+\end{matrix}%
+\begin{array}{c}
+S = 15 \\
+\Qcircuit @C=1em @R=.7em { 
+	& \gate{H} & \qw & \ctrl{1} & \gate{H} & \qw & \qw      & \ctrl{1} & \qw \\ 
+	& \gate{H} & \qw & \targfix & \ctrl{2} & \qw & \gate{K} & \targfix & \qw \\
+	& \gate{H} & \qw & \gate{K} & \qw      & \qw & \gate{H} & \qw      & \qw \\
+	& \gate{H} & \qw & \ctrl{1} & \targfix & \qw & \gate{H} & \qw      & \qw \\
+	& \gate{H} & \qw & \targfix & \gate{H} & \qw & \qw      & \qw      & \qw
+	\gategroup{1}{2}{5}{9}{.7em}{--}
+}\\
+\xymatrix {
+  & & D=3 \ar[ll] \ar[rr] & & \\
+ }
+\end{array}
+\end{displaymath}
+
+\begin{displaymath}
+\begin{array}{rcl}
+Q & = & 54\\
+S & = & 21\\
+W & = & 8\\
+D & = & 9\\
+DW  & = & 72
+\end{array}
+\end{displaymath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% In steps
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+%\vphantom{a}\\ 
+\coolleftbrace{W = 5}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a }
+\end{matrix}%
+\begin{array}{c}
+S = 8 \\
+\Qcircuit @C=1em @R=.7em { 
+	& \gate{H} & \qw & \ctrl{1} & \qw \\ 
+	& \gate{H} & \qw & \targfix & \qw \\
+	& \gate{H} & \qw & \gate{K} & \qw \\
+	& \gate{H} & \qw & \ctrl{1} & \qw \\
+	& \gate{H} & \qw & \targfix & \qw
+	\gategroup{1}{2}{5}{5}{.7em}{--}
+}\\
+\xymatrix {
+  D=1 \\
+ }
+\end{array}
+\end{displaymath}
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+%\vphantom{a}\\ 
+\coolleftbrace{W = 5}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a }
+\end{matrix}%
+\begin{array}{c}
+S = 11 \\
+\Qcircuit @C=1em @R=.7em { 
+	& \gate{H} & \qw & \ctrl{1} & \qw & \gate{H} & \qw \\ 
+	& \gate{H} & \qw & \targfix & \qw & \ctrl{2} & \qw \\
+	& \gate{H} & \qw & \gate{K} & \qw &\qw       & \qw \\
+	& \gate{H} & \qw & \ctrl{1} & \qw &\targfix  & \qw \\
+	& \gate{H} & \qw & \targfix & \qw &\gate{H}  & \qw
+	\gategroup{1}{2}{5}{5}{.7em}{--}
+	\gategroup{1}{6}{5}{6}{.7em}{--}
+}\\
+\xymatrix {
+  & D=2 \ar[l] \ar[r] & \\
+ }
+\end{array}
+\end{displaymath}
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+%\vphantom{a}\\ 
+\coolleftbrace{W = 5}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a }
+\end{matrix}%
+\begin{array}{c}
+S = 15 \\
+\Qcircuit @C=1em @R=.7em { 
+	& \gate{H} & \qw & \ctrl{1} & \qw & \gate{H} & \qw & \qw      & \ctrl{1} & \qw \\ 
+	& \gate{H} & \qw & \targfix & \qw & \ctrl{2} & \qw & \gate{K} & \targfix & \qw \\
+	& \gate{H} & \qw & \gate{K} & \qw &\qw      & \qw & \gate{H} & \qw      & \qw \\
+	& \gate{H} & \qw & \ctrl{1} & \qw &\targfix & \qw & \gate{H} & \qw      & \qw \\
+	& \gate{H} & \qw & \targfix & \qw &\gate{H} & \qw & \qw      & \qw      & \qw
+	\gategroup{1}{2}{5}{5}{.7em}{--}
+	\gategroup{1}{6}{5}{6}{.7em}{--}
+	\gategroup{1}{7}{5}{10}{.7em}{--}
+}\\
+\xymatrix {
+  & & D=3 \ar[ll] \ar[rr] & & \\
+ }
+\end{array}
+\end{displaymath}
+
 \end{document}

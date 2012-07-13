@@ -1,20 +1,4 @@
-% a sample file for Journal of Quantum Information and Computation (QIC) in 
-% LaTex2e by inputing macro file "qic.sty" with command \usepackage{qic}, 
-% all the macros have been defined in the style file, so it is no need to 
-% put many macros at the beginning of the text file  
-
 \documentclass[twoside]{article}
-%\usepackage[dvips]{graphicx}
-%\usepackage{times}
-%\usepackage{fullpage}
-%\usepackage{rotating}
-%\usepackage{eepic}
-%\usepackage{amsfonts}
-%\usepackage{algorithmic}
-%\usepackage{amsthm}
-
-%\theoremstyle{plain}
-%\newtheorem{theorem}{Theorem}
 
 \newcommand{\targfix}{\qw {\xy {<0em,0em> \ar @{ - } +<.39em,0em>
 \ar @{ - } -<.39em,0em> \ar @{ - } +<0em,.39em> \ar @{ - }
@@ -27,77 +11,44 @@
 \newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
 \newcommand{\norm}[1]{\parallel #1 \parallel}
 
-\begin{document}
+\newcommand\coolleftbrace[2]{%
+#1\left\{\vphantom{\begin{matrix} #2 \end{matrix}}\right.}
 
+\begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Compile gates overview
 
 \begin{displaymath}
-\begin{array}{ccc}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Source circuit
-\underbrace{
+\begin{matrix}% matrix for left braces
+\vphantom{a}\\ 
+\coolleftbrace{t}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a }
+\vphantom{a}\\ 
+\vphantom{a}\\ 
+\coolleftbrace{L}{a \\ a \\ a \\ a \\ a \\ a \\ a}
+\end{matrix}%
 \begin{array}{c}
-L = 2 \\
 \Qcircuit @C=1em @R=.7em { 
-	& \multigate{4}{U_1} & \qw & \multigate{4}{U_2} & \qw \\ 
-	& \ghost{U_1}        & \qw & \ghost{U_2}        & \qw \\
-	& \ghost{U_1}        & \qw & \ghost{U_2}        & \qw \\
-	& \ghost{U_1}        & \qw & \ghost{U_2}        & \qw \\
-	& \ghost{U_1}        & \qw & \ghost{U_2}        & \qw 
-	\gategroup{1}{2}{5}{4}{.7em}{--}
+	& \gate{H} & \qw & \ctrl{8}               & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \multigate{7}{QFT^{-1}} & \qw \\ 
+	& \gate{H} & \qw & \qw                    & \ctrl{7}               & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \ghost{QFT^{-1}}        & \qw \\
+	& \gate{H} & \qw & \qw                    & \qw                    & \ctrl{6}               & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \ghost{QFT^{-1}}        & \qw \\
+	& \gate{H} & \qw & \qw                    & \qw                    & \qw                    & \ctrl{5}               & \qw                    & \qw                    & \qw                    & \qw                    & \ghost{QFT^{-1}}        & \qw \\
+	& \gate{H} & \qw & \qw                    & \qw                    & \qw                    & \qw                    & \ctrl{4}               & \qw                    & \qw                    & \qw                    & \ghost{QFT^{-1}}        & \qw \\
+	& \gate{H} & \qw & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \ctrl{3}               & \qw                    & \qw                    & \ghost{QFT^{-1}}        & \qw \\
+	& \gate{H} & \qw & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \ctrl{2}               & \qw                    & \ghost{QFT^{-1}}        & \qw \\
+	& \gate{H} & \qw & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \qw                    & \ctrl{1}               & \ghost{QFT^{-1}}        & \qw \\
+	& \qw      & \qw & \multigate{4}{U^{2^0}} & \multigate{4}{U^{2^1}} & \multigate{4}{U^{2^2}} & \multigate{4}{U^{2^3}} & \multigate{4}{U^{2^4}} & \multigate{4}{U^{2^5}} & \multigate{4}{U^{2^6}} & \multigate{4}{U^{2^7}} & \qw                     & \qw \\
+	& \qw      & \qw & \ghost{U^{2^0}}        & \ghost{U^{2^1}}        & \ghost{U^{2^2}}        & \ghost{U^{2^3}}        & \ghost{U^{2^4}}        & \ghost{U^{2^5}}        & \ghost{U^{2^6}}        & \ghost{U^{2^7}}        & \qw                     & \qw \\
+	& \qw      & \qw & \ghost{U^{2^0}}        & \ghost{U^{2^1}}        & \ghost{U^{2^2}}        & \ghost{U^{2^3}}        & \ghost{U^{2^4}}        & \ghost{U^{2^5}}        & \ghost{U^{2^6}}        & \ghost{U^{2^7}}        & \qw                     & \qw \\
+	& \qw      & \qw & \ghost{U^{2^0}}        & \ghost{U^{2^1}}        & \ghost{U^{2^2}}        & \ghost{U^{2^3}}        & \ghost{U^{2^4}}        & \ghost{U^{2^5}}        & \ghost{U^{2^6}}        & \ghost{U^{2^7}}        & \qw                     & \qw \\
+	& \qw      & \qw & \ghost{U^{2^0}}        & \ghost{U^{2^1}}        & \ghost{U^{2^2}}        & \ghost{U^{2^3}}        & \ghost{U^{2^4}}        & \ghost{U^{2^5}}        & \ghost{U^{2^6}}        & \ghost{U^{2^7}}        & \qw                     & \qw
 }\\
 \xymatrix {
-  & d=2 \ar[l] \ar[r] & \\
+  & & & & O(t) \ar[llll] \ar[rrrr] & & & & \\
  }
-\end{array}
-}_{C}
-
-& 
-\begin{array}{c}
-\textsc{Quantum Compiler} \\
-\rightarrow
-\end{array}
-&
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Target circuit
-\underbrace{
-\begin{array}{c}
-L' = 15 \\
-\Qcircuit @C=1em @R=.7em { 
-	& \gate{H} & \qw & \ctrl{1} & \gate{H} & \qw & \qw      & \ctrl{1} & \qw \\ 
-	& \gate{H} & \qw & \targfix & \ctrl{2} & \qw & \gate{K} & \targfix & \qw \\
-	& \gate{H} & \qw & \gate{K} & \qw      & \qw & \gate{H} & \qw      & \qw \\
-	& \gate{H} & \qw & \ctrl{1} & \targfix & \qw & \gate{H} & \qw      & \qw \\
-	& \gate{H} & \qw & \targfix & \gate{H} & \qw & \qw      & \qw      & \qw
-	\gategroup{1}{2}{5}{9}{.7em}{--}
-}\\
-\xymatrix {
-  & & d'=5 \ar[ll] \ar[rr] & & \\
- }
-\end{array}
-}_{C}
-
 \end{array}
 \end{displaymath}
 
-\begin{displaymath}
-\begin{array}{ccc}
-\Qcircuit @C=1em @R=.7em { 
-	& \multigate{2}{U_1} & \qw \\ 
-	& \ghost{U_1}        & \qw \\
-	& \ghost{U_1}        & \qw 
-} & \ldots &
-\Qcircuit @C=1em @R=.7em { 
-	& \multigate{2}{U_L} & \qw \\ 
-	& \ghost{U_L}        & \qw \\
-	& \ghost{U_L}        & \qw 
-}
-\end{array}
-\end{displaymath}
 
 \end{document}
