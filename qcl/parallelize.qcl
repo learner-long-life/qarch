@@ -1,0 +1,39 @@
+// Test if diagonalization is really needed for Hoyer-Spalek parallelisation
+// for modular increment
+
+include "utils/qprint.qcl";
+
+qureg k[2];
+qureg a1[2];
+qureg a2[2];
+
+Mix(k);
+Mix(a1);
+Mix(a2);
+dump;
+
+// Fanout manually with a bunch of CNots
+CNot(a1[0], k[0]);
+CNot(a1[1], k[1]);
+CNot(a2[0], k[0]);
+CNot(a2[0], k[1]);
+dump;
+
+// Apply increments simultaneously to both registers
+CNot(a1[1], a1[0]);
+CNot(a2[1], a2[0]);
+Not(a1[0]);
+Not(a2[0]);
+dump;
+
+// Un-fanout manually with a bunch of CNots
+CNot(a1[0], k[0]);
+CNot(a1[1], k[1]);
+CNot(a2[0], k[0]);
+CNot(a2[0], k[1]);
+dump;
+
+
+qprints(a1, "a1= ");
+qprints(a2, "a2= ");
+qprints(k, "k= ");
