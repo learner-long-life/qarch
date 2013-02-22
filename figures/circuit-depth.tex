@@ -1,0 +1,90 @@
+\documentclass[twoside]{article}
+
+\newcommand{\targfix}{\qw {\xy {<0em,0em> \ar @{ - } +<.39em,0em>
+\ar @{ - } -<.39em,0em> \ar @{ - } +<0em,.39em> \ar @{ - }
+-<0em,.39em>},<0em,0em>*{\rule{.01em}{.01em}}*+<.8em>\frm{o}
+\endxy}}
+
+\input{Qcircuit}
+
+\newcommand{\braket}[2]{\langle #1|#2 \rangle}
+\newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
+\newcommand{\norm}[1]{\parallel #1 \parallel}
+
+\newcommand\coolleftbrace[2]{%
+#1\left\{\vphantom{\begin{matrix} #2 \end{matrix}}\right.}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Circuit with linear depth, n=6
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+\coolleftbrace{n}{a \\ a \\ a \\ a \\ a \\ a \\ a}
+\end{matrix}%
+\begin{array}{c}
+\Qcircuit @C=1em @R=.7em { 
+	& \multigate{1}{A} & \qw & \qw              & \qw & \qw              & \qw \\ 
+	& \ghost{A}        & \qw & \multigate{1}{D} & \qw & \qw              & \qw \\
+	& \multigate{1}{B} & \qw & \ghost{D}        & \qw & \multigate{1}{F} & \qw \\
+	& \ghost{B}        & \qw & \multigate{1}{E} & \qw & \ghost{F}        & \qw \\
+	& \multigate{1}{C} & \qw & \ghost{E}        & \qw & \qw              & \qw \\
+	& \ghost{C}        & \qw & \qw              & \qw & \qw              & \qw
+}\\
+\xymatrix {
+  & & O(n) \ar[ll] \ar[rr] & & \\
+ }
+\end{array}
+\end{displaymath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Circuit with linear depth, n=8
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+\coolleftbrace{n}{a \\ a \\ a \\ a \\ a \\ a \\ a \\ a \\ a}
+\end{matrix}%
+\begin{array}{c}
+\Qcircuit @C=1em @R=.7em { 
+	& \multigate{1}{A} & \qw & \qw              & \qw & \qw              & \qw & \qw \\ 
+	& \ghost{A}        & \qw & \multigate{1}{D} & \qw & \qw              & \qw & \qw \\
+	& \multigate{1}{B} & \qw & \ghost{D}        & \qw & \multigate{1}{F} & \qw & \qw \\
+	& \ghost{B}        & \qw & \multigate{1}{E} & \qw & \ghost{F}        & \qw & \multigate{1}{J} \\
+	& \multigate{1}{C} & \qw & \ghost{E}        & \qw & \multigate{1}{I} & \qw & \ghost{J} \\
+	& \ghost{C}        & \qw & \multigate{1}{H} & \qw & \ghost{I}        & \qw & \qw \\
+	& \multigate{1}{G} & \qw & \ghost{H}        & \qw & \qw              & \qw & \qw \\
+	& \ghost{G}        & \qw & \qw              & \qw & \qw              & \qw & \qw
+}\\
+\xymatrix {
+  & & O(n) \ar[ll] \ar[rr] & & \\
+ }
+\end{array}
+\end{displaymath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Circuit with quadratic depth, n=6
+
+\begin{displaymath}
+\begin{matrix}% matrix for left braces
+\coolleftbrace{n}{a \\ a \\ a \\ a \\ a \\ a \\ a}
+\end{matrix}%
+\begin{array}{c}
+\Qcircuit @C=1em @R=.7em { 
+	& \multigate{1}{A} & \qw & \qw              & \qw & \qw              & \qw & \multigate{1}{A} & \qw & \qw              & \qw & \qw              & \qw & \multigate{1}{A} & \qw & \qw              & \qw & \qw              & \qw \\ 
+	& \ghost{A}        & \qw & \multigate{1}{D} & \qw & \qw              & \qw & \ghost{A}        & \qw & \multigate{1}{D} & \qw & \qw              & \qw & \ghost{A}        & \qw & \multigate{1}{D} & \qw & \qw              & \qw \\
+	& \multigate{1}{B} & \qw & \ghost{D}        & \qw & \multigate{1}{F} & \qw & \multigate{1}{B} & \qw & \ghost{D}        & \qw & \multigate{1}{F} & \qw & \multigate{1}{B} & \qw & \ghost{D}        & \qw & \multigate{1}{F} & \qw \\
+	& \ghost{B}        & \qw & \multigate{1}{E} & \qw & \ghost{F}        & \qw & \ghost{B}        & \qw & \multigate{1}{E} & \qw & \ghost{F}        & \qw & \ghost{B}        & \qw & \multigate{1}{E} & \qw & \ghost{F}        & \qw \\
+	& \multigate{1}{C} & \qw & \ghost{E}        & \qw & \qw              & \qw & \multigate{1}{C} & \qw & \ghost{E}        & \qw & \qw              & \qw & \multigate{1}{C} & \qw & \ghost{E}        & \qw & \qw              & \qw \\
+	& \ghost{C}        & \qw & \qw              & \qw & \qw              & \qw & \ghost{C}        & \qw & \qw              & \qw & \qw              & \qw & \ghost{C}        & \qw & \qw              & \qw & \qw              & \qw
+}\\
+\xymatrix {
+  & & & & & O(n^2) \ar[lllll] \ar[rrrrr] & & & & & \\
+ }
+\end{array}
+\end{displaymath}
+
+\end{document}
