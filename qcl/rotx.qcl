@@ -1,0 +1,11 @@
+// Test rotating about the x axis of Bloch sphere
+// and complex number notation
+include "utils/qprint.qcl";
+
+qureg q[1];
+
+// and make the source qubit a weirder mixture
+Matrix2x2(cos(pi/8),(0,-1)*sin(pi/8),(0,-1)*sin(pi/8),cos(pi/8),q);
+
+dump;
+

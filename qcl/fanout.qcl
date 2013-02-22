@@ -1,0 +1,49 @@
+// Test unbounded fanout circuit with fixup
+
+include "utils/qprint.qcl";
+
+qureg q[1];
+qureg catstate[10];
+
+int j1;
+int k1;
+int j2;
+int k2;
+int j3;
+int k3;
+
+// Apply Hadamards to the first of each triplet
+Mix(catstate[0]);
+Mix(catstate[3]);
+Mix(catstate[6]);
+// and make the source qubit a weirder mixture
+Matrix2x2(cos(pi/8),(0,-1)*sin(pi/8),(0,-1)*sin(pi/8),cos(pi/8),q);
+
+// entangle the qubits in each triple
+CNot(catstate[1], catstate[0]);
+CNot(catstate[2], catstate[1]);
+
+CNot(catstate[4], catstate[3]);
+CNot(catstate[5], catstate[3]);
+
+CNot(catstate[7], catstate[6]);
+CNot(catstate[8], catstate[7]);
+
+// Do bell basis measurements, including on source qubit and first triplet
+CNot(catstate[0], q);
+Mix(q);
+measure q, j1;
+measure catstate[0], k1;
+
+CNot(catstate[3], catstate[2]);
+Mix(catstate[2]);
+measure catstate[2], j2;
+measure catstate[3], k2;
+
+CNot(catstate[6], catstate[5]);
+Mix(catstate[5]);
+measure catstate[5], j3;
+measure catstate[6], k3;
+
+dump;
+
