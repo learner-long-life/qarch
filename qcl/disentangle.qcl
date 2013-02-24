@@ -1,0 +1,45 @@
+// Test entangling two cat-2 states, then disentangling them
+
+include "utils/qprint.qcl";
+
+qureg q[4];
+
+int j;
+int k;
+
+// Apply Hadamards to the first of each double
+Mix(q[0]);
+Mix(q[2]);
+
+dump;
+// Expected 0.5 |0> + 0.5 |1> + 0.5 |4> + 0.5 |5>
+
+// entangle the qubits in each pair
+CNot(q[1], q[0]);
+CNot(q[3], q[2]);
+
+dump;
+// Expected 0.5 |0> + 0.5 |3> + 0.5 |12> + 0.5 |15>
+
+// Do bell basis measurements to create cat state
+CNot(q[2], q[1]);
+Mix(q[1]);
+measure q[1], j;
+measure q[2], k;
+
+dump;
+
+print "j=",j;
+print "k=",k;
+
+if (j == 1) {
+	// only apply Z once, since qubits 4 and 5 are entangled
+	Z(q[3]);
+	Not(q[1]);
+}
+if (k == 1) {
+	Not(q[3]);
+	Not(q[2]);
+}
+
+dump;
