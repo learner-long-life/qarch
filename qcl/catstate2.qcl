@@ -1,0 +1,41 @@
+// Testing cat-state creation circuit with fixup
+
+include "utils/qprint.qcl";
+
+qureg catstate[6];
+
+int j;
+int k;
+
+// Apply Hadamards to the first of each triplet
+Mix(catstate[0]);
+Mix(catstate[3]);
+
+// entangle the qubits in each triple
+CNot(catstate[1], catstate[0]);
+CNot(catstate[2], catstate[1]);
+
+CNot(catstate[4], catstate[3]);
+CNot(catstate[5], catstate[4]);
+
+// Do bell basis measurements to create cat state
+CNot(catstate[3], catstate[2]);
+Mix(catstate[2]);
+measure catstate[2], j;
+measure catstate[3], k;
+
+dump;
+
+print "j=",j;
+print "k=",k;
+
+if (j == 1) {
+	// only apply Z once, since qubits 4 and 5 are entangled
+	Z(catstate[4]);
+}
+if (k == 1) {
+	Not(catstate[4]);
+	Not(catstate[5]);
+}
+
+dump;
