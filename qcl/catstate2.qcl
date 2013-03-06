@@ -1,4 +1,5 @@
 // Testing cat-state creation circuit with fixup
+// Notebook #16, p. 30
 
 include "utils/qprint.qcl";
 
@@ -29,13 +30,13 @@ dump;
 print "j=",j;
 print "k=",k;
 
-if (j == 1) {
-	// only apply Z once, since qubits 4 and 5 are entangled
-	Z(catstate[4]);
-}
 if (k == 1) {
 	Not(catstate[4]);
 	Not(catstate[5]);
+}
+if (j == 1) {
+	// only apply Z once, since qubits 4 and 5 are entangled
+	Z(catstate[4]);
 }
 
 dump;
