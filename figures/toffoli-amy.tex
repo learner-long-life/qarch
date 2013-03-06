@@ -1,0 +1,44 @@
+% Toffoli gate decomposition given in Amy 2012
+
+\documentclass[twoside]{article}
+
+\usepackage{array}
+
+\newcommand{\targfix}{\qw {\xy {<0em,0em> \ar @{ - } +<.39em,0em>
+\ar @{ - } -<.39em,0em> \ar @{ - } +<0em,.39em> \ar @{ - }
+-<0em,.39em>},<0em,0em>*{\rule{.01em}{.01em}}*+<.8em>\frm{o}
+\endxy}}
+
+\input{Qcircuit}
+
+\newcommand{\braket}[2]{\langle #1|#2 \rangle}
+\newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
+\newcommand{\norm}[1]{\parallel #1 \parallel}
+
+\begin{document}
+
+
+\begin{displaymath}
+\begin{tabular}{p{0.5in} m{0.1in} p{2in}}
+
+\Qcircuit @C=1em @R=2.2em { 
+	& \qw & \ctrl{1} & \qw & \qw \\
+	& \qw & \ctrl{1} & \qw & \qw \\
+	& \qw & \targfix & \qw & \qw
+}
+
+&
+\qquad
+=
+\qquad
+&
+
+\Qcircuit @C=1em @R=.7em { 
+	& \gate{T^{\dagger}} & \qw & \targfix  & \qw & \gate{T} & \qw & \targfix  & \qw & \gate{T^{\dagger}} & \qw & \targfix  & \qw & \gate{T}           & \qw & \targfix  & \qw & \qw \\ 
+	& \gate{T^{\dagger}} & \qw & \qw       & \qw & \ctrl{1} & \qw & \ctrl{-1} & \qw & \ctrl{1}           & \qw & \qw       & \qw & \qw                & \qw & \ctrl{-1} & \qw & \qw \\
+	& \gate{H}           & \qw & \ctrl{-2} & \qw & \targfix & \qw & \gate{T}  & \qw & \targfix           & \qw & \ctrl{-2} & \qw & \gate{T^{\dagger}} & \qw & \gate{H}  & \qw & \qw
+}
+\end{tabular}
+\end{displaymath}
+
+\end{document}
