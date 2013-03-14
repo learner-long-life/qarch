@@ -1,0 +1,48 @@
+// Test fanning out a single qubit to two qubits separated by two qubits
+// as in Aram's fanout circuit
+// and then unfanning it out, resulting in the original source qubit,
+// a zero qubit, and a cat2 state.
+
+include "utils/qprint.qcl";
+
+qureg q[4];
+
+int j;
+int k;
+
+// Apply a weird rotation to first qubit
+Matrix2x2(cos(pi/8),(0,-1)*sin(pi/8),(0,-1)*sin(pi/8),cos(pi/8),q[0]);
+
+// Fanout (this is not constant-depth, but we just need to create a
+// fanned out state for testing)
+// with two product qubits in the middle, as if we had just measured
+// and then corrected to |0>
+CNot(q[3],q[0]);
+//CNot(q[2],q[1]);
+//CNot(q[3],q[2]);
+
+dump;
+// Expected
+// 0.92388 |0> - 0.38268i |9>
+
+// Now attempt to disentangle q[0] and q[3], using the intermediate qubits
+// in some constant-depth way
+
+Mix(q[0]);
+
+dump;
+// Expected
+// 0.65328 |0> + 0.65328 |1> - 0.2706i |8> + 0.2706i |9>
+
+CNot(q[1],q[0]);
+CNot(q[2],q[3]);
+
+dump;
+// Expected
+// 0.65328 |0> + 0.65328 |3> - 0.2706i |12> + 0.2706i |15>
+
+Matrix4x4(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,-1, q[2] & q[1]);
+
+dump;
+// Expected
+// 0.65328 |0> + 0.65328 |3> - 0.2706i |12> - 0.2706i |15>
