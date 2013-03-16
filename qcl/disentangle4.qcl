@@ -18,9 +18,8 @@ Matrix2x2(cos(pi/8),(0,-1)*sin(pi/8),(0,-1)*sin(pi/8),cos(pi/8),q[0]);
 // with two product qubits in the middle, as if we had just measured
 // and then corrected to |0>
 CNot(q[3],q[0]);
-//CNot(q[2],q[1]);
-//CNot(q[3],q[2]);
 
+print "CHECKPOINT 0";
 dump;
 // Expected
 // 0.92388 |0> - 0.38268i |9>
@@ -30,6 +29,7 @@ dump;
 
 Mix(q[0]);
 
+print "CHECKPOINT 1";
 dump;
 // Expected
 // 0.65328 |0> + 0.65328 |1> - 0.2706i |8> + 0.2706i |9>
@@ -37,12 +37,73 @@ dump;
 CNot(q[1],q[0]);
 CNot(q[2],q[3]);
 
+print "CHECKPOINT 2";
 dump;
 // Expected
 // 0.65328 |0> + 0.65328 |3> - 0.2706i |12> + 0.2706i |15>
 
 Matrix4x4(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,-1, q[2] & q[1]);
 
+print "CHECKPOINT 3";
 dump;
 // Expected
 // 0.65328 |0> + 0.65328 |3> - 0.2706i |12> - 0.2706i |15>
+
+//============================================================================
+// Here, I am just showing my work
+
+// alpha/sqrt(2) |0000> + alpha/sqrt(2) |0011> +
+// beta/sqrt(2) |1100> + beta/sqrt(2) |1111>
+
+// (\alpha |00> + \beta|11>) 1/sqrt(2) |00> +
+// (\alpha |00> + \beta|11>) 1/sqrt(2) |11>
+
+// =
+// (\alpha|00> + \beta|11>)1/sqrt(2)(|00> + |11>)
+
+
+// ===========================================================================
+// How do we generate more symmetries, in an attempt to isolate just
+// the first qubit to \alpha|0> + \beta|1>
+
+Mix(q[3]);
+
+print "CHECKPOINT 4";
+dump;
+
+// + 0.46194 |0> + 0.46194 |3> - 0.19134i |4> - 0.19134i |7>
+// + 0.46194 |8> + 0.46194 |11> + 0.19134i |12> + 0.19134i |15>
+
+// =
+
+// + alpha/2 |0000> + alpha/2 |0011> + beta/2 |0100> + beta/2 |0111>
+// + alpha/2 |1000> + alpha/2 |1011> - beta/2 |1100> - beta/2 |1111>
+
+// We need to correct the signs on the last two states
+
+Matrix4x4(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,-1, q[3] & q[2]);
+
+print "CHECKPOINT 5";
+dump;
+
+// + 0.46194 |0> + 0.46194 |3> - 0.19134i |4> - 0.19134i |7> 
+// + 0.46194 |8> + 0.46194 |11> - 0.19134i |12> - 0.19134i |15>
+
+// =
+
+// + alpha/2 |0000> + alpha/2 |0011> + beta/2 |0100> + beta/2 |0111>
+// + alpha/2 |1000> + alpha/2 |1011> + beta/2 |1100> + beta/2 |1111>
+
+// =
+
+// 1/sqrt(2)(|0>+|1>)(alpha/sqrt(2)|000> + beta/sqrt(2)|111>) +
+// 1/sqrt(2)(|0>+|1>)(alpha/sqrt(2)|011> + beta/sqrt(2)|100>)
+
+// Still too lop-sided
+CNot(q[2],q[3]);
+
+print "CHECKPOINT 5";
+dump;
+// Expected
+// + 0.46194  |0000> + 0.46194  |0011> - 0.19134i |0100> - 0.19134i |0111> 
+// - 0.19134i |1000> - 0.19134i |1011> + 0.46194  |1100> + 0.46194  |1111>
