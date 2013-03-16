@@ -1,0 +1,21 @@
+// Testing the endianness of Matrix4x4
+
+qureg q[2];
+
+Mix(q[0]);
+
+Matrix4x4(1,0,0,0, 0,1,0,0, 0,0,0,1, 0,0,1,0, q[0] & q[1]);
+
+dump;
+
+// Expected
+// 0.70711 |0> + 0.70711 |1>
+// The above should do nothing, since the control q[1] is still |0>
+
+Matrix4x4(1,0,0,0, 0,1,0,0, 0,0,0,1, 0,0,1,0, q[1] & q[0]);
+
+dump;
+
+// Expected
+// 0.70711 |0> + 0.70711 |3>
+
