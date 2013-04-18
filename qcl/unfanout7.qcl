@@ -1,0 +1,70 @@
+// Test constant-depth unfanout on 7-qubit fanned out state
+// currently, without recovering cat state.
+
+include "qprint.qcl";
+
+qureg q[7];
+
+int j1;
+int j2;
+int j3;
+int j4;
+int j5;
+int j6;
+
+// Apply a weird rotation to first qubit
+Matrix2x2(cos(pi/8),(0,-1)*sin(pi/8),(0,-1)*sin(pi/8),cos(pi/8),q[0]);
+
+dump;
+
+// Fanout (this is not constant-depth, but we just need to create a
+// fanned out state for testing)
+// with two product qubits in the middle, as if we had just measured
+// and then corrected to |0>
+CNot(q[1],q[0]);
+CNot(q[2],q[1]);
+CNot(q[3],q[2]);
+CNot(q[4],q[3]);
+CNot(q[5],q[4]);
+CNot(q[6],q[5]);
+
+//dump;
+// Expected
+
+Mix(q[5]);
+Mix(q[4]);
+Mix(q[3]);
+Mix(q[2]);
+Mix(q[1]);
+Mix(q[0]);
+
+//dump;
+// Expected
+
+CNot(q[1],q[0]);
+CNot(q[3],q[2]);
+CNot(q[5],q[4]);
+
+CNot(q[2],q[1]);
+CNot(q[4],q[3]);
+CNot(q[6],q[5]);
+
+//dump;
+// Expected
+
+measure q[0], j1;
+measure q[1], j2;
+measure q[2], j3;
+measure q[3], j4;
+measure q[4], j5;
+measure q[5], j6;
+
+//Mix(q[6]);
+
+dump;
+
+if (j2==1) {
+//	Z(q[6]);
+}
+
+dump;
