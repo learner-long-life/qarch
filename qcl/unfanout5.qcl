@@ -1,0 +1,62 @@
+// Test fanning out a single qubit to three qubits separated by two qubits
+// each, as in Aram's fanout circuit with a triplet
+// and then unfanning it out, resulting in the original source qubit,
+// and hopefully some reusable cat states
+
+include "qprint.qcl";
+
+qureg q[5];
+
+int j1;
+int j2;
+int j3;
+int j4;
+int j5;
+
+// Apply a weird rotation to first qubit
+Matrix2x2(cos(pi/8),(0,-1)*sin(pi/8),(0,-1)*sin(pi/8),cos(pi/8),q[0]);
+
+dump;
+
+// Fanout (this is not constant-depth, but we just need to create a
+// fanned out state for testing)
+// with two product qubits in the middle, as if we had just measured
+// and then corrected to |0>
+CNot(q[1],q[0]);
+CNot(q[2],q[1]);
+CNot(q[3],q[2]);
+CNot(q[4],q[3]);
+
+//dump;
+// Expected
+
+Mix(q);
+
+//dump;
+// Expected
+
+CNot(q[1],q[0]);
+CNot(q[3],q[2]);
+CNot(q[2],q[1]);
+CNot(q[4],q[3]);
+
+//dump;
+// Expected
+
+measure q[0], j1;
+measure q[1], j2;
+measure q[2], j3;
+measure q[3], j4;
+
+Mix(q[4]);
+
+dump;
+
+if (j2==1) {
+	Z(q[4]);
+}
+if (j2 == 1 and j4 == 0) or  (j1 == 1 and j2 == 1 and j4 == 0) or (j1 == 0 and j3 == 1 and j4 == 0) or (j1 == 0 and j2 == 1 and j3 == 0) {
+//	Not(q[4]);
+}
+
+dump;
