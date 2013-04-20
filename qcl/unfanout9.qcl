@@ -14,10 +14,15 @@ int j6;
 int j7;
 int j8;
 
+int first;
+
+while (1) {
+reset;
+
 // Apply a weird rotation to first qubit
 Matrix2x2(cos(pi/8),(0,-1)*sin(pi/8),(0,-1)*sin(pi/8),cos(pi/8),q[0]);
 
-dump;
+//dump;
 
 // Fanout (this is not constant-depth, but we just need to create a
 // fanned out state for testing)
@@ -74,7 +79,12 @@ measure q[7], j8;
 dump;
 
 if (j2==1 and j4==0 and j6==0) or (j2==0 and j4==1 and j6==0) or (j2==0 and j4==0 and j6==1) {
-	Z(q[8]);
+	print "Tentative Correcting!";
+//	Z(q[8]);
 }
 
 dump;
+
+first = (j1) + (j2*2) + (j3*4) + (j4*8) + (j5*16) + (j6*32);
+print "FIRST= ", j6, " ", j5, " ", j4, " ", j3, " ", j2, " ",j1;
+}
