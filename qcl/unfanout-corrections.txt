@@ -1,0 +1,73 @@
+unfanout5.qcl corrections
+
+| 0>   00000
+| 1>   00001
+| 2> Z 00010
+| 3> Z 00011
+| 4>   00100
+| 5>   00101
+| 6> Z 00110
+| 7> Z 00111
+| 8>   01000
+| 9>   01001
+|10> Z 01010
+|11> Z 01011
+|12>   01100
+|13>   01101
+|14> Z 01110
+|15> Z 01111
+
+Z if j2=1 (odd parity for j2)
+
+unfanout7.qcl corrections
+|0>
+| 9> Z 001001
+|12> Z 001100
+|16>   010000
+|17>   
+|18>
+|22> Z 010110
+|23>*
+|30>   011110
+|31>   011111
+|32>   100000
+|35> Z 100011
+|43>   101011
+|46>   101110
+|49>
+|50>*
+|54>*
+|56> Z 111000
+|59>   111011
+|61>*
+
+Z if (odd parity for j2, j4)
+
+unfanout9.qcl corrections
+| 44>    00101100
+| 47>  Z 00101111
+| 49>  Z 00110001
+|111>  Z 01101111
+|116>  Z 01110100
+|157> X  10011101
+|173> X  10101101
+|190> X  10111110
+|233> XZ 11101001
+|252> XZ 11111100
+
+Z if (odd parity for j2, j4, j6)
+
+Processing stages:
+
+1. run QCL script, pipe output to logfile
+     qcl unfanoutx.qcl | tee unfanoutx.log
+
+2. grep the logfile to make sure that there are no + sign's,
+   which would indicate a Z correction is not happening
+     grep "+" unfanoutx.log | tee unfanoutx-states.txt
+
+3. sort the logfile and pipe to another file (this is not strictly necessary)
+     sort unfanoutx-states.txt | tee unfanoutx-sorted.txt
+
+4. de-dupe, or extract unique lines only
+     uniq unfanoutx-sorted.txt | unfanoutx-unique.txt
