@@ -73,8 +73,8 @@ measure q[7], j8;
 
 dump;
 
-if (j8==1) {
-//	Z(q[8]);
+if (j2==1 and j4==0 and j6==0) or (j2==0 and j4==1 and j6==0) or (j2==0 and j4==0 and j6==1) {
+	Z(q[8]);
 }
 
 dump;
