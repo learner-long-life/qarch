@@ -39,7 +39,7 @@ CNot(q[3],q[2]);
 CNot(q[2],q[1]);
 CNot(q[4],q[3]);
 
-//dump;
+dump;
 // Expected
 
 measure q[0], j1;
@@ -54,6 +54,8 @@ dump;
 if (j2==1) {
 	Z(q[4]);
 }
+// This is what I calculated in my notebook would be the correct correction
+// but was actually not
 if (j2 == 1 and j4 == 0) or  (j1 == 1 and j2 == 1 and j4 == 0) or (j1 == 0 and j3 == 1 and j4 == 0) or (j1 == 0 and j2 == 1 and j3 == 0) {
 //	Not(q[4]);
 }
