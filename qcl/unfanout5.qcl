@@ -11,7 +11,6 @@ int j1;
 int j2;
 int j3;
 int j4;
-int j5;
 
 // Apply a weird rotation to first qubit
 Matrix2x2(cos(pi/8),(0,-1)*sin(pi/8),(0,-1)*sin(pi/8),cos(pi/8),q[0]);
