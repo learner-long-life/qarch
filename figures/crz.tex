@@ -1,0 +1,57 @@
+% Decomposition of controlled-R_z gate into CNOT and single-qubit rotations.
+
+\documentclass[twoside]{article}
+%\usepackage[dvips]{graphicx}
+%\usepackage{times}
+%\usepackage{fullpage}
+%\usepackage{rotating}
+%\usepackage{eepic}
+%\usepackage{amsfonts}
+%\usepackage{algorithmic}
+%\usepackage{amsthm}
+
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}
+
+\newcommand{\targfix}{\qw {\xy {<0em,0em> \ar @{ - } +<.39em,0em>
+\ar @{ - } -<.39em,0em> \ar @{ - } +<0em,.39em> \ar @{ - }
+-<0em,.39em>},<0em,0em>*{\rule{.01em}{.01em}}*+<.8em>\frm{o}
+\endxy}}
+
+\input{Qcircuit}
+
+\newcommand{\braket}[2]{\langle #1|#2 \rangle}
+\newcommand{\normtwo}{\frac{1}{\sqrt{2}}}
+\newcommand{\norm}[1]{\parallel #1 \parallel}
+
+\newcommand\coolleftbrace[2]{%
+#1\left\{\vphantom{\begin{matrix} #2 \end{matrix}} \right.}
+
+\newcommand\coolrightbrace[2]{%
+\left. \vphantom{\begin{matrix} #2 \end{matrix}} \right\} #1}
+
+\begin{document}
+
+\begin{displaymath}
+\begin{array}{ccc}
+\Qcircuit @C=1.5em @R=1.5em {
+   & \qw      & \ctrl{1}                   & \qw \\
+   & \qw      & \gate{\frac{\pi}{2^{d}}} & \qw \\
+ }
+&
+\begin{array}{c}
+\\
+\\
+\\
+= \\
+\end{array}
+&
+\Qcircuit @C=1.5em @R=1.5em {
+& \qw & \qw & \qw & \ctrl{1} & \qw & \gate{\frac{\pi}{2^{d+1}}} & \qw & \ctrl{1} & \qw\\
+ & \qw & \gate{\frac{\pi}{2^{d+1}}} & \qw & \targfix & \qw & \gate{\frac{\pi}{2^{d+1}}} & \qw & \targfix & \qw
+}
+\end{array}
+%}
+\end{displaymath}
+
+\end{document}
